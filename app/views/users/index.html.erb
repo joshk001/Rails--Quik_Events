@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login and Registration</title>
+	
+</head>
+<style>
+	body {
+		background-image: url(http://dreamatico.com/data_images/ocean/ocean-2.jpg);
+	}
+</style>
+<body>
+<div class="col-sm-12">
+	<h1>Quik Events</h1>
+</div>
+
+<div class="container">
+	<div class="register col-sm-6">
+		<h1>Registration</h1>
+		<form action="/users" method="post">
+			<input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+
+			<label for="first_name">First Name: </label>
+			<input type="text" name="users[first_name]" id="first_name" class="form-control">
+
+			<label for="last_name">Last Name: </label>
+			<input type="text" name="users[last_name]" id="last_name" class="form-control">
+
+			<label for="email">Email: </label>
+			<input type="text" name="users[email]" id="email" class="form-control">
+
+			<label for="location">City: </label>
+			<input type="text" name="users[location]" id="location" class="form-control">
+
+			<label for="state">State: </label>
+			<input type="text" name="users[state]" id="state" placeholder="example: CA / NY / FL" class="form-control">
+
+			<label for="password">Password: </label>
+			<input type="password" name="users[password]" id="password" class="form-control">
+
+			<label for="name">Password Confirmation: </label>
+			<input type="password" name="users[password_confirmation]"class="form-control"><br>
+
+			<button class="btn btn-info form-control">Register</button>
+		</form>	
+	</div>
+
+	<div class="login col-sm-6">
+		<h1>Login</h1>
+		<form action="/sessions" method="post">
+			<input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+
+			<label>Email: </label>
+			<input type="text" name="sessions[email]" class="form-control">
+
+			<label>Password: </label>
+			<input type="password" name="sessions[password]" class="form-control"><br>
+
+			<button class="btn btn-success form-control">Login</button>
+		</form>
+	</div>
+</div>
+
+
+</body>
+</html>

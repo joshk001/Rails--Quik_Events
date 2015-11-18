@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Events Main Page</title>
+</head>
+<style>
+	body {
+		background-image: url(http://www.silverliningnews.com/wp-content/uploads/2014/03/bigstock-Gray-Background-3368923.jpg);
+		background-size: 100%, 100%;
+	}
+</style>
+<body>
+
+
+
+<h1><strong>Welcome, <%= @user.first_name %> !</strong></h1><br>
+
+<div class="row">
+	<div class="my_events col-sm-6">
+		<legend>My Events</legend>
+		<table class="table table-bordered table-responsive">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Date</th>
+					<th>State</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%  @user.events.each do |uuu| %>
+				<tr>
+					<td><%= uuu.name %> </td>
+					<td><%= uuu.date %></td>
+					<td><%= uuu.state %></td>
+					<td>
+					<form method="post" action="/events/<%= uuu.id %>">
+						<input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+						<input type="hidden" name="_method" value="delete">
+						<button>Cancel</button></td>
+					</form>
+
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="add_event col-sm-6">
+		<div class="add_data" style="margin-left:35px">
+			<form action="/events" method="post">
+			<legend>Create Event</legend>
+				<input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+
+				<label for="name">Event Name: </label>
+				<input type="text" name="name" id="name"><br>
+
+				<label for="date">Date: </label>
+				<input type="date" name="date" id="date"><br>
+
+				<label for="location">City: </label>
+				<input type="text" name="location" id="location"><br>
+
+				<label for="state">State: </label>
+				<input type="text" name="state" id="state" placeholder="example: CA"><br>
+
+				<button>Add Event</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div class="all_events">
+	<legend>Showing All Events:</legend>
+	<table class="table table-bordered table-responsive">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Date</th>
+				<th>Location</th>
+				<th>State</th>
+				<th>Host</th>
+				<th>Action/Status</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @events.each do |event| %>
+			<tr>
+				<td><a href="/events/<%= event.id %>"><%= event.name %></a></td>
+				<td><%= event.date %></td>
+				<td><%= event.location %></td>
+				<td><%= event.state %></td>
+				<td><%= event.user.first_name %></td>
+				<td>
+
+					<!-- Joining the Event -->
+					<form method="post" action="/joins">
+						<input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+						<input type="hidden" name="event_id" value="<%=event.id%>"> 
+						<button>Join Event</button>
+					</form>
+
+					<!-- Unjoining the Event -->
+					
+
+				</td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div><br>
+
+
+
+</body>
+</html>

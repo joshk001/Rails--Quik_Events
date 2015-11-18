@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Editing Profile</title>
+</head>
+<style>
+	body {
+		background-image: url(http://demortalz.com/wp-content/uploads/2011/11/18.png);
+		background-size: 100%, 100%;
+	}
+</style>
+<body>
+<div class="box" style="margin-left:35px">
+	<h1>Edit Profile</h1>
+
+	<form action="/users/<%= current_user.id %>" method="post">
+		<input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>"> 
+		<input type="hidden" name="_method" value="patch">
+
+		<label>First Name: </label>
+		<input type="text" name="users[first_name]" value="<%= @user.first_name %>"><br>
+
+		<label>Last Name: </label>
+		<input type="text" name="users[last_name]" value="<%= @user.last_name %>"><br>
+
+		<label>Email: </label>
+		<input type="text" name="users[email]" value="<%= @user.email %>"><br>
+
+		<label>Location: </label>
+		<input type="text" name="users[location]" value="<%= @user.location %>"><br>
+
+		<label>State: </label>
+		<input type="text" placeholder="example: CA" name="users[state]" value="<%= @user.state %>"><br><br>
+
+		<button>Update</button>
+	</form>
+	<button><a href="/events">Back</a></button>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Specific Event</title>
+</head>
+<body>
+
+<button><a href="/events">Back to Events</a></button>
+
+<div class="event">
+	<h1> <%= @eve.name %> </h1>
+
+	<p>Host: <%= @u.first_name %></p>
+	<p>Date: <%= @eve.date %></p>
+	<p>Location: <%= @eve.location %>, <%= @eve.state %></p> 
+	<p>People who are joining the event:  ______ </p>
+</div>
+
+<div class="users_joined">
+	<table class="table table-bordered"  style="width:700px">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Location</th>
+				<th>State</th>
+			</tr>
+		</thead>
+		<tbody>
+			
+			<tr>
+				<td class="col-md-2"></td>
+				<td class="col-md-1">___</td>
+				<td class="col-md-1">___</td>
+			</tr>
+			
+			
+		</tbody>
+	</table>
+</div>
+
+<div class="comment_box">
+	<h4>Discussion about this event:</h4>
+	<!-- NAME says:  COMMENT -->
+	<p><strong>NAME</strong> says: COMMENT </p>
+
+</div>
+
+
+
+
+
+
+</body>
+</html>
