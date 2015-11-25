@@ -13,9 +13,8 @@ class JoinsController < ApplicationController
 
 	#UNJOIN the event
 	def destroy
-		join = Join.find(params[:id])
-		join.destroy
+		j = Join.find(params[:id])
+		j.destroy
 		redirect_to :back
-
 	end
 end

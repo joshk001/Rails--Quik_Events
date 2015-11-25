@@ -13,7 +13,7 @@
 	<p>Host: <%= @u.first_name %></p>
 	<p>Date: <%= @eve.date %></p>
 	<p>Location: <%= @eve.location %>, <%= @eve.state %></p> 
-	<p>People who are joining the event:  ______ </p>
+	<p>People who are joining the event:  <%= @ppl.count %> </p>
 </div>
 
 <div class="users_joined">
@@ -26,28 +26,91 @@
 			</tr>
 		</thead>
 		<tbody>
-			
+			<% @ppl.each do |ppl| %>
 			<tr>
-				<td class="col-md-2"></td>
-				<td class="col-md-1">___</td>
-				<td class="col-md-1">___</td>
+				<td class="col-md-2"><%= ppl.first_name %></td>
+				<td class="col-md-1"><%= ppl.location %></td>
+				<td class="col-md-1"><%= ppl.state %></td>
 			</tr>
-			
+			<% end %>
 			
 		</tbody>
 	</table>
 </div>
 
-<div class="comment_box">
-	<h4>Discussion about this event:</h4>
-	<!-- NAME says:  COMMENT -->
-	<p><strong>NAME</strong> says: COMMENT </p>
+<div class="row">
+	<div class="map col-md-6">
 
+		<input type="text" id="my-address">
+        <button id="getCords" onClick="codeAddress();">getLat&Long</button>
+
+		<img id="map_image" src="https://maps.googleapis.com/maps/api/staticmap?center=<%=@eve.location%>+<%=@eve.state%>&zoom=14&size=550x400&maptype=roadmap&markers=color:red%7C40.718217,-73.998284&sensor=false"/>
+	</div>
+
+	<div class="comment_box col-md-6">
+		<div class="comment_box">
+			<h4>Discussion about this event:</h4>
+
+			<form method="post" action="/comments">
+				<input type="hidden" name="authenticity_token" value="form_authenticity_token">
+				<input type="hidden" name="comment_id">
+				<textarea name="comment[comment]"></textarea>
+				<input type="submit">
+			</form>
+		</div>
+		<div class="comment">
+			
+				<p><strong> Name: </strong>says: COMMENT </p>
+			
+		</div>
+	</div>
 </div>
 
 
 
 
+
+<!--   Latitude and Longitude Locator by City script  -->
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+        <script type="text/javascript">
+        function initialize() {
+        var address = (document.getElementById('my-address'));
+        var autocomplete = new google.maps.places.Autocomplete(address);
+        autocomplete.setTypes(['geocode']);
+        google.maps.event.addListener(autocomplete, 'place_changed', function() {
+            var place = autocomplete.getPlace();
+            if (!place.geometry) {
+                return;
+            }
+
+        var address = '';
+        if (place.address_components) {
+            address = [
+                (place.address_components[0] && place.address_components[0].short_name || ''),
+                (place.address_components[1] && place.address_components[1].short_name || ''),
+                (place.address_components[2] && place.address_components[2].short_name || '')
+                ].join(' ');
+        }
+      });
+}
+function codeAddress() {
+    geocoder = new google.maps.Geocoder();
+    var address = document.getElementById("my-address").value;
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+
+      alert("Latitude: "+results[0].geometry.location.lat());
+      alert("Longitude: "+results[0].geometry.location.lng());
+      } 
+
+      else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  }
+google.maps.event.addDomListener(window, 'load', initialize);
+
+</script>
 
 
 </body>

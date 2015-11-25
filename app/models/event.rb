@@ -1,8 +1,9 @@
 class Event < ActiveRecord::Base
 	belongs_to :user
  	
- 	has_many :comment, through: :users, source: :user
+ 	has_many :comments, through: :users, source: :user
  	has_many :users_joined, through: :joins, source: :user, dependent: :destroy
+ 	has_many :joins, dependent: :destroy
 
 
 	validates :name, :date, :location, :state, presence: true

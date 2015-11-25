@@ -2,7 +2,7 @@ class EventsController < ApplicationController
 
 	def index
 		@user = User.find(current_user)
-		@events = Event.all
+		@events = Event.all.where.not(:user_id => current_user.id)
 		# @event = Event.find(params[:id])
 		# @event_by_user = @user.event
 	end
@@ -21,14 +21,18 @@ class EventsController < ApplicationController
 	def show #Showing the details of the specific event
 		@eve = Event.find(params[:id])
 		@u = @eve.user
-			#Users joining the specific event
-		@join = Join.find(params[:id])
-		# @j = @join.
+
+		#Displaying members who joined
+		j = Join.all.where(event_id: @eve.id)
+		u = j.pluck(:user_id)
+		@ppl = User.all.where(id: u)
+		
+	
 	end
 
 	def destroy
 		event = Event.find(params[:id])
-		event.destroy
+		event.delete
 		redirect_to :back
 	end
 

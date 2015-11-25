@@ -32,9 +32,10 @@ Rails.application.routes.draw do
 
   #Join & Unjoin an Event
   post '/joins' => 'joins#create'
-  delete '/joins/:id' => 'joins#delete'
+  delete '/joins/:id' => 'joins#destroy'
 
-
+  #Posting a Comment in specific event
+  post '/comments' => 'comments#new'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

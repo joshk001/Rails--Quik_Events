@@ -2,7 +2,9 @@ class User < ActiveRecord::Base
   has_secure_password
 
   has_many :events
-  has_many :events_joined, through: :joins, source: :event
+  has_many :events_joined, through: :join, source: :event
+  has_many :joins
+  has_many :comments
 
   EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]+)\z/i
 
